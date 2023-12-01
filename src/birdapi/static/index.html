@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .rTable { 
+                display:table; 
+                border: 1px solid #999999;
+                padding: 20px 20px;
+            }
+            .rTableRow { display: table-row; }
+            .rTableBody { display: table-row-group; }
+            .rTableCell { 
+                display: table-cell; 
+                padding: 5px 10px;
+                border: 1px solid #999999;
+            }
+            .rTableCell2 { 
+                display: table-cell; 
+                padding: 5px 10px;
+                border: 1px solid #999999;
+                text-align: center;
+            }
+            .rTableCaption {
+                display: table-caption;
+                caption-side: top;
+                text-align: center;
+                width: 100%;
+                border: 1px;
+            }
+        </style>
+        <script>
+            let birdClasses = {
+                "barswa": "Barn Swallow",
+                "cohmar1": "Common House-Martin",
+                "combuz1": "Common Buzzard",
+                "comsan": "Common Sandpiper",
+                "eaywag1": "Western Yellow Wagtail",
+                "eubeat1": "European Bee-eater",
+                "litegr": "Little Egret",
+                "thrnig1": "Thrush Nightingale",
+                "wlwwar": "Willow Warbler",
+                "woosan": "Wood Sandpiper"
+            };
+
+            // Call the bird classification model by sending 
+            // a GET request to the /prediction API in the Flask application.
+            // Pass the name of sample's associated spectrograph image as a query string parameter.
+            function getClassification(fname, divId) {
+                document.getElementById(divId).innerText = '';
+                fetch('../prediction?' + new URLSearchParams({
+                    filename: fname
+                }))
+                .then((response) => response.text())
+                .then((text => {
+                    document.getElementById(divId).innerText = birdClasses[text];
+                }));
+            }
+    </script>
+    </head>
+    <body>
+        <dialog style="z-index: 99999;">
+            <img id="img01" src="content/XC27278_5.png"/>
+            <br/>
+            <button autofocus>Close</button>
+        </dialog>
+        <script>
+            const dialog = document.querySelector("dialog");
+            const closeButton = document.querySelector("dialog button");
+
+            closeButton.addEventListener("click", () => {
+                dialog.close();
+            });
+
+            function showSpectrograph(imgName) {
+                let srcPath = "content/" + imgName;
+                document.getElementById("img01").src = srcPath;
+                dialog.show()
+            }
+        </script>
+
+        <h1>Group 9 - Bird Sounds Classification</h1>
+        <h3>Please interact with these non-training samples to try our classification model.</h3>
+
+        <div style="display:flex">
+
+        <!-- Common House-Martin -->
+        <div class="rTable">
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Known Species: </span>
+                </div>
+                <div class="rTableCell">
+                    Common House-Martin
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Audio Sample: </span>
+                </div>
+                <div class="rTableCell">
+                    <audio controls>
+                        <source src ="content/XC27278.ogg" type="audio/ogg">
+                    </audio>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <a href="javascript:showSpectrograph('XC27278_5.png')">Show Sample Spectrograph</a>
+                </div>
+                <div class="rTableCell2">
+                    <button type="button" onclick="getClassification('XC27278_5.png', 'cls01')">Get Model Classification</button>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell"> 
+                    <span style="font-weight: bold;">Classification: </span>
+                </div>
+                <div class="rTableCell" id="cls01"></div>
+            </div>
+        </div>
+
+        <!-- Barn Swallow -->
+        <div class="rTable">
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Known Species: </span>
+                </div>
+                <div class="rTableCell">
+                    Barn Swallow
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Audio Sample: </span>
+                </div>
+                <div class="rTableCell">
+                    <audio controls>
+                        <source src ="content/XC142794.ogg" type="audio/ogg">
+                    </audio>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <a href="javascript:showSpectrograph('XC142794_5.png')">Show Sample Spectrograph</a>
+                </div>
+                <div class="rTableCell2">
+                    <button type="button" onclick="getClassification('XC142794_5.png', 'cls02')">Get Model Classification</button>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell"> 
+                    <span style="font-weight: bold;">Classification: </span>
+                </div>
+                <div class="rTableCell" id="cls02"></div>
+            </div>
+        </div>
+
+        <!-- Common Buzzard -->
+        <div class="rTable">
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Known Species: </span>
+                </div>
+                <div class="rTableCell">
+                    Common Buzzard
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Audio Sample: </span>
+                </div>
+                <div class="rTableCell">
+                    <audio controls>
+                        <source src ="content/XC120413.ogg" type="audio/ogg">
+                    </audio>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <a href="javascript:showSpectrograph('XC120413_1.png')">Show Sample Spectrograph</a>
+                </div>
+                <div class="rTableCell2">
+                    <button type="button" onclick="getClassification('XC120413_1.png', 'cls03')">Get Model Classification</button>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell"> 
+                    <span style="font-weight: bold;">Classification: </span>
+                </div>
+                <div class="rTableCell" id="cls03"></div>
+            </div>
+        </div>
+        
+    </div>
+
+    <br/>
+
+    <div style="display:flex">
+        <!-- Common Sandpiper -->
+        <div class="rTable">
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Known Species: </span>
+                </div>
+                <div class="rTableCell">
+                    Common Sandpiper
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Audio Sample: </span>
+                </div>
+                <div class="rTableCell">
+                    <audio controls>
+                        <source src ="content/XC25127.ogg" type="audio/ogg">
+                    </audio>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <a href="javascript:showSpectrograph('XC25127_1.png')">Show Sample Spectrograph</a>
+                </div>
+                <div class="rTableCell2">
+                    <button type="button" onclick="getClassification('XC25127_1.png', 'cls04')">Get Model Classification</button>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell"> 
+                    <span style="font-weight: bold;">Classification: </span>
+                </div>
+                <div class="rTableCell" id="cls04"></div>
+            </div>
+        </div>
+
+        <!-- Western Yellow Wagtail -->
+        <div class="rTable">
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Known Species: </span>
+                </div>
+                <div class="rTableCell">
+                    Western Yellow Wagtail
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Audio Sample: </span>
+                </div>
+                <div class="rTableCell">
+                    <audio controls>
+                        <source src ="content/XC140811.ogg" type="audio/ogg">
+                    </audio>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <a href="javascript:showSpectrograph('XC140811_1.png')">Show Sample Spectrograph</a>
+                </div>
+                <div class="rTableCell2">
+                    <button type="button" onclick="getClassification('XC140811_1.png', 'cls05')">Get Model Classification</button>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell"> 
+                    <span style="font-weight: bold;">Classification: </span>
+                </div>
+                <div class="rTableCell" id="cls05"></div>
+            </div>
+        </div>
+
+        <!-- European Bee-eater -->
+        <div class="rTable">
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Known Species: </span>
+                </div>
+                <div class="rTableCell">
+                    European Bee-eater
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Audio Sample: </span>
+                </div>
+                <div class="rTableCell">
+                    <audio controls>
+                        <source src ="content/XC135682.ogg" type="audio/ogg">
+                    </audio>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <a href="javascript:showSpectrograph('XC135682_2.png')">Show Sample Spectrograph</a>
+                </div>
+                <div class="rTableCell2">
+                    <button type="button" onclick="getClassification('XC135682_2.png', 'cls06')">Get Model Classification</button>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell"> 
+                    <span style="font-weight: bold;">Classification: </span>
+                </div>
+                <div class="rTableCell" id="cls06"></div>
+            </div>
+        </div>
+
+    </div>           
+    
+    <div style="display:flex">
+        <!-- Little Egret -->
+        <div class="rTable">
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Known Species: </span>
+                </div>
+                <div class="rTableCell">
+                    Little Egret
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Audio Sample: </span>
+                </div>
+                <div class="rTableCell">
+                    <audio controls>
+                        <source src ="content/XC309390.ogg" type="audio/ogg">
+                    </audio>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <a href="javascript:showSpectrograph('XC309390_1.png')">Show Sample Spectrograph</a>
+                </div>
+                <div class="rTableCell2">
+                    <button type="button" onclick="getClassification('XC309390_1.png', 'cls07')">Get Model Classification</button>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell"> 
+                    <span style="font-weight: bold;">Classification: </span>
+                </div>
+                <div class="rTableCell" id="cls07"></div>
+            </div>
+        </div>
+
+        <!-- Thrush Nightingale -->
+        <div class="rTable">
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Known Species: </span>
+                </div>
+                <div class="rTableCell">
+                    Thrush Nightingale
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Audio Sample: </span>
+                </div>
+                <div class="rTableCell">
+                    <audio controls>
+                        <source src ="content/XC25660.ogg" type="audio/ogg">
+                    </audio>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <a href="javascript:showSpectrograph('XC25660_1.png')">Show Sample Spectrograph</a>
+                </div>
+                <div class="rTableCell2">
+                    <button type="button" onclick="getClassification('XC25660_1.png', 'cls08')">Get Model Classification</button>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell"> 
+                    <span style="font-weight: bold;">Classification: </span>
+                </div>
+                <div class="rTableCell" id="cls08"></div>
+            </div>
+        </div>
+
+        <!-- Willow Warbler -->
+        <div class="rTable">
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Known Species: </span>
+                </div>
+                <div class="rTableCell">
+                    Willow Warbler
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Audio Sample: </span>
+                </div>
+                <div class="rTableCell">
+                    <audio controls>
+                        <source src ="content/XC128357.ogg" type="audio/ogg">
+                    </audio>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <a href="javascript:showSpectrograph('XC128357_1.png')">Show Sample Spectrograph</a>
+                </div>
+                <div class="rTableCell2">
+                    <button type="button" onclick="getClassification('XC128357_1.png', 'cls09')">Get Model Classification</button>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell"> 
+                    <span style="font-weight: bold;">Classification: </span>
+                </div>
+                <div class="rTableCell" id="cls09"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="display:flex">
+        <!-- Wood Sandpiper -->
+        <div class="rTable">
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Known Species: </span>
+                </div>
+                <div class="rTableCell">
+                    Wood Sandpiper
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <span style="font-weight: bold;">Audio Sample: </span>
+                </div>
+                <div class="rTableCell">
+                    <audio controls>
+                        <source src ="content/XC140651.ogg" type="audio/ogg">
+                    </audio>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell">
+                    <a href="javascript:showSpectrograph('XC140651_1.png')">Show Sample Spectrograph</a>
+                </div>
+                <div class="rTableCell2">
+                    <button type="button" onclick="getClassification('XC140651_1.png', 'cls10')">Get Model Classification</button>
+                </div>
+            </div>
+            <div class="rTableRow">
+                <div class="rTableCell"> 
+                    <span style="font-weight: bold;">Classification: </span>
+                </div>
+                <div class="rTableCell" id="cls10"></div>
+            </div>
+        </div>
+    </div>
+        
+    </body>
+</html>
